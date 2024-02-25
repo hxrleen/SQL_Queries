@@ -113,3 +113,18 @@ amt) desc;
 108-select max(amt)as maxam,odate from orders group by snum,odate;
 109-select sum(o.amt)*s.comm as sale,s.snum,s.sname from salespeople s join orders o on s.snum=o.snum group by s.snum order by sale desc;
 110-select sum(o.amt) as amt,c.cname from orders o join customers c on c.cnum=o.cnum group by c.cnum order by amt asc limit 1;
+111-select s.sname from salespeople s join orders o on s.snum=o.snum where o.amt<200;
+112-  select distinct a.cname,b.cname from customers a join customers b on a.rating=b.rating and a.cnum<b.cnum;
+113-select onum,amt from orders where amt>(select avg(amt) from orders where odate='1996-10-04');
+114- select distinct c.cname from customers c join orders o where c.cnum=o.cnum and o.amt>(select avg(amt) from orders);
+115-select c.cname,c.rating from customers c where c.rating>(select avg(rating) from customers where city='san jose');
+116- select snum,sum(amt)as total from orders group by snum having total>(select max(amt) from orders);
+117-select s.snum,s.sname,count(s.snum)as cnt from salespeople s join customers c on c.snum=s.snum group by s.snum having cnt>1;
+118-select s.sname,s.snum from salespeople s join customers c where s.city=c.city and s.snum!=c.snum;
+119-
+120-select sname from salespeople join customers where customers.city='berlin' and salespeople.snum=customers.snum;
+121-
+122-select (select sum(a.amt*c.comm) as totalsales from orders a,customer b,salespeople c where a.cnum=b.cnum and b.snum=c.snum and (c.city='London' or c.city='New York')) as x,(select sum(a.amt) from orders a,customer b where a.cnum=b.cnum and (b.city='Rome' or b.city='London')) as y;
+123- select o.odate,o.onum,o.amt,s.city,s.sname from orders o join salespeople s on s.snum=o.snum where o.amt in (select max(amt) from orders group by snum);
+124- select snum,sname from salespeople where snum not in (select snum from orders);
+125- select sum(amt) from orders;
